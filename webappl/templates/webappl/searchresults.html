@@ -1,0 +1,27 @@
+<div class="container">
+    <hr>
+    <!-- parse the JSON-->
+    {% if appointments.count > 0 %}
+    <p class="alert-success info-success" >Number of appointments returned - <span>{{ appointments.count }}</span></p>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.date_app|date:"M d" }}</td>
+                        <td>{{ appointment.date_app|date:"P" }}</td>
+                        <td>{{ appointment.description_app }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+    <p class=" alert-info">No appointments match the search criteria.</p>
+    {% endif %}
+</div>

@@ -1,0 +1,86 @@
+{% block content %}
+<div id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                <button type="button" class="btn btn-primary" id="add-new">New appointment</button>
+                <div class="content">
+                    <!--form 1 : hidden : add new-->
+                    <!--form 1 : Add new appointment form with 2 input fields 'datetime_app' and 'descNew' and 2 submit fields 'add-app' and 'cancel-app'-->
+                    <form name="NewForm" id="NewForm" method="post">
+                        <h4>Add a new appointment</h4>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                                {% csrf_token %}
+                                <span class="alert alert-danger alert1"></span>
+                                <div class="form-group">
+                                     <label for="datetime_app">Please select date and time*</label>
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <input type='text' class="form-control" id="datetime_app" name="datetime_app"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <span class="alert alert-danger alert2"></span>
+                                <div class="control-group descNew1">
+                                    
+                                   <label for="descNew">Description*</label>
+                                    <div class="input-group  col-xs-12">
+                                         <input type="textarea" class="form-control" id="descNew" name="descNew" value="" required >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row marginTop">
+                             <div class="col-xs-6 col-sm-3 col-sm-offset-2">
+                                <div class="control-group">
+                                    <div class="input-group" >
+                                        <input type="submit" value="add" id="add-app" class="btn btn-primary" name="add">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-3 col-sm-offset-2">
+                                <div class="control-group">
+                                    <div class="input-group" >
+                                        <input value="cancel" class="btn btn-primary" id="add-cancel">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                <div class="content">
+                    <!--form 2 : search form with 'searchTerm' and 'submit' fields-->
+                    <form name="searchForm" id="searchForm" method="post" action="/search" class="marginTop">
+                        <h4>Search for an appointment</h4>
+                       <div class="row">
+                           {% csrf_token %}
+                            <div class="col-xs-12 col-sm-6 col-sm-offset-1">
+                                <div class="control-group">
+                                    <label for="searchTerm">Enter a description</label>
+                                    <div class="input-group  col-xs-12">
+                                        <input type="text" class="form-control" id="searchTerm" name="searchTerm" value="" required value='{{request.GET.searchTerm}}' >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-xs-offset-3 col-sm-5 col-sm-offset-0">
+                                <div class="control-group">
+                                    <div class="input-group" >
+                                        <input type="submit" value="search" class="btn btn-primary" name="search">
+                                    </div>
+                                </div>
+                             </div>
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!--container-->
+    <!--AJAX search call populates the searchResults div below-->
+    <div id="searchResults">
+    </div>
+</div>
+{% endblock %}
